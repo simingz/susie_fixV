@@ -4,15 +4,8 @@
 \alias{susie_get_cs}
 \title{Extract credible sets from SuSiE fit}
 \usage{
-susie_get_cs(
-  res,
-  X = NULL,
-  Xcorr = NULL,
-  coverage = 0.95,
-  min_abs_corr = 0.5,
-  dedup = TRUE,
-  squared = FALSE
-)
+susie_get_cs(res, X = NULL, Xcorr = NULL, coverage = 0.95,
+  min_abs_corr = 0.5, dedup = TRUE, squared = FALSE)
 }
 \arguments{
 \item{res}{a susie fit, the output of `susieR::susie()`, or simply the posterior
@@ -48,7 +41,7 @@ Extract credible sets from SuSiE fit
 }
 \details{
 Reports indices of variables in each credible set (CS) identified,
-as well as summaries of correlation among the variables included in each CS.
+as well as summaries of correlation among the variables included in each CS.Revised from susieR::susie_get_cs.
 If desired, one can filter out CSs that do not meet a specified purity threshold (min_abs_corr);
 to do this either `X` or `Xcorr` must be supplied.
 }

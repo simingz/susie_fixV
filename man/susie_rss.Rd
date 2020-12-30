@@ -4,34 +4,15 @@
 \alias{susie_rss}
 \title{Bayesian sum of single-effect (SuSiE) linear regression using z scores}
 \usage{
-susie_rss(
-  z,
-  R,
-  maf = NULL,
-  maf_thresh = 0,
-  z_ld_weight = 0,
-  L = 10,
-  prior_variance = 50,
-  residual_variance = NULL,
-  r_tol = 1e-08,
-  prior_weights = NULL,
-  null_weight = NULL,
-  estimate_residual_variance = TRUE,
-  estimate_prior_variance = TRUE,
+susie_rss(z, R, maf = NULL, maf_thresh = 0, z_ld_weight = 0,
+  L = 10, prior_variance = 50, residual_variance = NULL,
+  r_tol = 1e-08, prior_weights = NULL, null_weight = NULL,
+  estimate_residual_variance = TRUE, estimate_prior_variance = TRUE,
   estimate_prior_method = c("optim", "EM", "simple"),
-  check_null_threshold = 0,
-  prior_tol = 1e-09,
-  max_iter = 100,
-  s_init = list(),
-  intercept_value = 0,
-  coverage = 0.95,
-  min_abs_corr = 0.5,
-  tol = 0.001,
-  verbose = FALSE,
-  track_fit = FALSE,
-  check_R = TRUE,
-  check_z = TRUE
-)
+  check_null_threshold = 0, prior_tol = 1e-09, max_iter = 100,
+  s_init = list(), intercept_value = 0, coverage = 0.95,
+  min_abs_corr = 0.5, tol = 0.001, verbose = FALSE,
+  track_fit = FALSE, check_R = TRUE, check_z = TRUE)
 }
 \arguments{
 \item{z}{a p vector of z scores.}
@@ -111,7 +92,7 @@ a susie fit, which is a list with some or all of the following elements\cr
 Bayesian sum of single-effect (SuSiE) linear regression using z scores
 }
 \details{
-Performs sum of single-effect (SuSiE) linear regression with z scores.
+Revised from susieR::susie_rss. Performs sum of single-effect (SuSiE) linear regression with z scores.
 The summary data required are the p by p correlation matrix R, the p vector z. The summary stats should come from the same individuals.
 This function fits the regression model z = sum_l Rb_l + e, where e is N(0,residual_variance * R) and the
 sum_l b_l is a p vector of effects to be estimated.

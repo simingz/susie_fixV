@@ -1,18 +1,18 @@
 #' @title Initialize a susie object using regression coefficients
 #'
 #' @param coef_index An L-vector for indices of nonzero effects.
-#' 
+#'
 #' @param coef_value An L-vector for initial estimated beta values.
-#' 
+#'
 #' @param p A scalar the number of variables in the data.
-#' 
+#'
 #' @return A list (alpha, mu, mu2) to be used by \code{susie}.
 #'
 #' @examples
 #' # Add example(s) here.
-#' 
+#'
 #' @export
-#' 
+#'
 susie_init_coef = function (coef_index, coef_value, p) {
   L = length(coef_index)
   if (L <= 0)
@@ -67,22 +67,24 @@ init_setup = function (n, p, L, scaled_prior_variance, residual_variance,
   return(s)
 }
 
-# Update a susie fit object in order to initialize susie model.
+#' a susie fit object in order to initialize susie model. Revised from
+#' susieR::init_finalize
 init_finalize = function (s, X = NULL, Xr = NULL) {
-  if(length(s$V) == 1)
-    s$V = rep(s$V,nrow(s$alpha))
-  
+  # different form susieR
+  # if(length(s$V) == 1)
+  #   s$V = rep(s$V, nrow(s$alpha))
+
   # Check sigma2.
   if (!is.numeric(s$sigma2))
     stop("Input residual variance sigma2 must be numeric")
-  
+
   # Avoid problems with dimension if input is a 1 x 1 matrix.
   s$sigma2 = as.numeric(s$sigma2)
   if (length(s$sigma2) != 1)
     stop("Input residual variance sigma2 must be a scalar")
   if (s$sigma2 <= 0)
     stop("Residual variance sigma2 must be positive (is your var(Y) zero?)")
-  
+
   # check prior variance
   if (!is.numeric(s$V))
     stop("Input prior variance must be numeric")
@@ -92,19 +94,22 @@ init_finalize = function (s, X = NULL, Xr = NULL) {
     stop("dimension of mu and mu2 in input object do not match")
   if (!all(dim(s$mu) == dim(s$alpha)))
     stop("dimension of mu and alpha in input object do not match")
-  if (nrow(s$alpha) != length(s$V))
-    stop("Input prior variance V must have length of nrow of alpha in ",
-         "input object")
-  
+
+  # different from susieR
+  # if (nrow(s$alpha) != length(s$V))
+  #   stop("Input prior variance V must have length of nrow of alpha in ",
+  #        "input object")
+
   # Update Xr.
   if (!missing(Xr))
     s$Xr = Xr
   if (!missing(X))
     s$Xr = compute_Xb(X,colSums(s$mu * s$alpha))
-  
+
   # Reset KL and lbf.
   s$KL = rep(as.numeric(NA),nrow(s$alpha))
   s$lbf = rep(as.numeric(NA),nrow(s$alpha))
   class(s) = "susie"
   return(s)
 }
+
